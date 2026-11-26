@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdmitPro - College Admission Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!--login / register -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-box">
+            <div class="auth-brand"><i class="fa-solid fa-graduation-cap"></i> AdmitPro</div>
+            <p class="auth-sub">College Admission Portal</p>
+
+            <div class="auth-tabs">
+                <button type="button" id="tab-login" class="active">Login</button>
+                <button type="button" id="tab-signup">Sign Up</button>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="admin@admitpro.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <p class="hint">Demo login: admin@admitpro.com / admin123</p>
+            </form>
+
+            <form id="signup-form" class="hidden">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password (min 6 characters)</label>
+                    <input type="password" id="signup-password" minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!--app-->
+    <div id="app" class="hidden">
+
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="brand"><i class="fa-solid fa-graduation-cap"></i> AdmitPro</div>
+            <ul class="nav-links">
+                <li><a href="#dashboard" data-page="dashboard" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="#register" data-page="register"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+                <li><a href="#apply" data-page="apply"><i class="fa-solid fa-clipboard-list"></i> Apply</a></li>
+                <li><a href="#applications" data-page="applications"><i class="fa-solid fa-list"></i> Applications</a></li>
+                <li><a href="#application-detail" data-page="application-detail"><i class="fa-solid fa-id-badge"></i> Detail</a></li>
+                <li><a href="#documents" data-page="documents"><i class="fa-solid fa-file-arrow-up"></i> Documents</a></li>
+                <li><a href="#review" data-page="review"><i class="fa-solid fa-clipboard-check"></i> Review</a></li>
+                <li><a href="#merit-list" data-page="merit-list"><i class="fa-solid fa-trophy"></i> Merit List</a></li>
+                <li><a href="#admission" data-page="admission"><i class="fa-solid fa-award"></i> Admission</a></li>
+                <li><a href="#reports" data-page="reports"><i class="fa-solid fa-chart-column"></i> Reports</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <main class="main-content">
+
+            <!-- Top bar -->
+            <header class="top-bar">
+                <div class="top-left">
+                    <button type="button" id="menu-btn" class="icon-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+                <div class="top-bar-right">
+                    <input type="text" id="global-search" placeholder="Search applicants...">
+                    <button type="button" id="dark-toggle" class="icon-btn" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+                    <span class="user"><i class="fa-solid fa-circle-user"></i> <span id="user-name">Admin</span></span>
+                    <button type="button" id="logout-btn" class="btn-small">Logout</button>
+                </div>
+            </header>
+
+            <!--dashboard-->
+            <section id="dashboard" class="page active-page">
+                <h3 class="section-title">Admission Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card"><i class="fa-solid fa-file-lines"></i><div><h4 id="stat-total">0</h4><p>Total Applications</p></div></div>
+                    <div class="stat-card"><i class="fa-solid fa-hourglass-half"></i><div><h4 id="stat-review">0</h4><p>Under Review</p></div></div>
+                    <div class="stat-card"><i class="fa-solid fa-circle-check"></i><div><h4 id="stat-admitted">0</h4><p>Admitted</p></div></div>
+                    <div class="stat-card"><i class="fa-solid fa-circle-xmark"></i><div><h4 id="stat-rejected">0</h4><p>Rejected</p></div></div>
+                </div>
+
+                <div class="card">
+                    <h3 class="section-title">Recent Applications</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Date</th><th>Status</th></tr></thead>
+                            <tbody id="recent-applications"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- student registration-->
+            <section id="register" class="page">
+                <div class="card">
+                    <h3 class="section-title">Student Registration</h3>
+                    <form id="register-form">
+                        <div class="form-grid">
+                            <div class="form-group"><label for="reg-name">Full Name</label><input type="text" id="reg-name" placeholder="Enter full name" required></div>
+                            <div class="form-group"><label for="reg-email">Email</label><input type="email" id="reg-email" placeholder="Enter email" required></div>
+                            <div class="form-group"><label for="reg-phone">Phone</label><input type="tel" id="reg-phone" placeholder="+91 9876543210" pattern="[+0-9 ]{10,15}" required></div>
+                            <div class="form-group"><label for="reg-dob">Date of Birth</label><input type="date" id="reg-dob" required></div>
+                            <div class="form-group">
+                                <label for="reg-gender">Gender</label>
+                                <select id="reg-gender" required>
+                                    <option value="">Select gender</option>
+                                    <option>Male</option><option>Female</option><option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="reg-address">Address</label><input type="text" id="reg-address" placeholder="Enter address" required></div>
+                            <div class="form-group"><label for="reg-10th">10th Percentage</label><input type="number" id="reg-10th" min="0" max="100" placeholder="e.g. 88" required></div>
+                            <div class="form-group"><label for="reg-12th">12th Percentage</label><input type="number" id="reg-12th" min="0" max="100" placeholder="e.g. 92" required></div>
+                        </div>
+                        <button type="submit" class="btn">Register Student</button>
+                    </form>
+                </div>
+            </section>
+
+            <!--application form - multi step -->
+            <section id="apply" class="page">
+                <div class="card">
+                    <h3 class="section-title">Application Form</h3>
+
+                    <div class="step-indicator">
+                        <div class="step-dot active" id="dot-1">1. Student</div>
+                        <div class="step-dot" id="dot-2">2. Course &amp; Scores</div>
+                        <div class="step-dot" id="dot-3">3. Review</div>
+                    </div>
+
+                    <form id="apply-form">
+                        <div class="form-step active" id="step-1">
+                            <div class="form-group">
+                                <label for="apply-student">Select Registered Student</label>
+                                <select id="apply-student"><option value="">Select student</option></select>
+                            </div>
+                        </div>
+
+                        <div class="form-step" id="step-2">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="apply-course">Course</label>
+                                    <select id="apply-course">
+                                        <option value="">Select course</option>
+                                        <option>B.Tech Computer Science</option>
+                                        <option>B.Tech Electronics &amp; Communication</option>
+                                        <option>B.Tech Mechanical Engineering</option>
+                                        <option>B.Tech Civil Engineering</option>
+                                        <option>MBA (Business Administration)</option>
+                                        <option>B.Sc Computer Science</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label for="apply-academic">Academic Score (%)</label><input type="number" id="apply-academic" min="0" max="100" placeholder="e.g. 90"></div>
+                                <div class="form-group"><label for="apply-entrance">Entrance Score (%)</label><input type="number" id="apply-entrance" min="0" max="100" placeholder="e.g. 85"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-step" id="step-3">
+                            <p class="review-text">Please review your details and click Submit.</p>
+                            <div id="review-summary" class="review-box"></div>
+                        </div>
+
+                        <div class="step-buttons">
+                            <button type="button" class="btn btn-outline" id="prev-btn">Previous</button>
+                            <button type="button" class="btn" id="next-btn">Next</button>
+                            <button type="submit" class="btn" id="submit-btn">Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!--application listing-->
+            <section id="applications" class="page">
+                <div class="card">
+                    <h3 class="section-title">All Applications</h3>
+                    <div class="filter-bar">
+                        <input type="text" id="app-search" placeholder="Search by student name...">
+                        <select id="filter-status">
+                            <option value="">All Statuses</option>
+                            <option>Submitted</option><option>Under Review</option><option>Shortlisted</option>
+                            <option>Merit List</option><option>Admitted</option><option>Rejected</option>
+                        </select>
+                        <select id="filter-course">
+                            <option value="">All Courses</option>
+                            <option>B.Tech Computer Science</option>
+                            <option>B.Tech Electronics &amp; Communication</option>
+                            <option>B.Tech Mechanical Engineering</option>
+                            <option>B.Tech Civil Engineering</option>
+                            <option>MBA (Business Administration)</option>
+                            <option>B.Sc Computer Science</option>
+                        </select>
+                        <input type="date" id="filter-date">
+                        <button type="button" class="btn-small btn-grey" id="clear-filters">Clear</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Score</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody id="applications-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!--application details-->
+            <section id="application-detail" class="page">
+                <div class="card">
+                    <h3 class="section-title">Application Detail</h3>
+                    <div id="detail-content" class="detail-grid">
+                        <p class="review-text">Select an application from the list to view its details.</p>
+                    </div>
+
+                    <h4 class="sub-title">Status Tracking</h4>
+                    <div id="detail-timeline" class="timeline"></div>
+
+                    <h4 class="sub-title">Uploaded Documents</h4>
+                    <ul id="detail-documents" class="doc-list"></ul>
+
+                    <h4 class="sub-title">Reviewer Comments</h4>
+                    <ul id="detail-comments" class="doc-list"></ul>
+                </div>
+            </section>
+
+            <!--document upload-->
+            <section id="documents" class="page">
+                <div class="card">
+                    <h3 class="section-title">Document Upload (Simulated)</h3>
+                    <div class="form-group upload-student">
+                        <label for="doc-student">Select Student</label>
+                        <select id="doc-student"><option value="">Select student</option></select>
+                    </div>
+
+                    <div class="upload-grid">
+                        <div class="upload-item"><label for="doc-photo"><i class="fa-solid fa-image"></i> Passport Size Photo</label><input type="file" id="doc-photo" data-doc="Passport Size Photo" accept="image/*"></div>
+                        <div class="upload-item"><label for="doc-signature"><i class="fa-solid fa-signature"></i> Signature</label><input type="file" id="doc-signature" data-doc="Signature" accept="image/*"></div>
+                        <div class="upload-item"><label for="doc-10th"><i class="fa-solid fa-file"></i> 10th Marksheet</label><input type="file" id="doc-10th" data-doc="10th Marksheet" accept=".pdf,image/*"></div>
+                        <div class="upload-item"><label for="doc-12th"><i class="fa-solid fa-file"></i> 12th Marksheet</label><input type="file" id="doc-12th" data-doc="12th Marksheet" accept=".pdf,image/*"></div>
+                        <div class="upload-item"><label for="doc-tc"><i class="fa-solid fa-file"></i> Transfer Certificate</label><input type="file" id="doc-tc" data-doc="Transfer Certificate" accept=".pdf,image/*"></div>
+                        <div class="upload-item"><label for="doc-id"><i class="fa-solid fa-id-card"></i> Identity Proof</label><input type="file" id="doc-id" data-doc="Identity Proof" accept=".pdf,image/*"></div>
+                    </div>
+                    <button type="button" class="btn" id="upload-btn">Upload Documents</button>
+
+                    <h4 class="sub-title" style="margin-top:28px;">Documents on file</h4>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Student</th><th>Document</th><th>File</th><th>Uploaded</th><th>Status</th></tr></thead>
+                            <tbody id="documents-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- application review-->
+            <section id="review" class="page">
+                <div class="card">
+                    <h3 class="section-title">Application Review</h3>
+                    <div class="form-group upload-student">
+                        <label for="review-app">Select Application</label>
+                        <select id="review-app"><option value="">Select application</option></select>
+                    </div>
+                    <div id="review-info" class="review-box hidden"></div>
+
+                    <div class="form-group" style="margin-top:16px;">
+                        <label for="review-comment">Reviewer Comment</label>
+                        <textarea id="review-comment" rows="3" placeholder="Write your comment..."></textarea>
+                    </div>
+
+                    <div class="step-buttons wrap">
+                        <button type="button" class="btn btn-blue" id="btn-under-review">Mark Under Review</button>
+                        <button type="button" class="btn btn-green" id="btn-approve">Approve (Shortlist)</button>
+                        <button type="button" class="btn btn-red" id="btn-reject">Reject</button>
+                    </div>
+                </div>
+            </section>
+
+            <!--merit list-->
+            <section id="merit-list" class="page">
+                <div class="card">
+                    <h3 class="section-title">Merit List Generation</h3>
+                    <p class="review-text">Total Score = 60% Academic + 40% Entrance. Only <b>Shortlisted</b> applicants are ranked.</p>
+
+                    <div class="filter-bar">
+                        <select id="merit-course">
+                            <option value="">Select course</option>
+                            <option>B.Tech Computer Science</option>
+                            <option>B.Tech Electronics &amp; Communication</option>
+                            <option>B.Tech Mechanical Engineering</option>
+                            <option>B.Tech Civil Engineering</option>
+                            <option>MBA (Business Administration)</option>
+                            <option>B.Sc Computer Science</option>
+                        </select>
+                        <input type="number" id="merit-seats" min="1" value="5" placeholder="Seats">
+                        <input type="number" id="merit-cutoff" min="0" max="100" value="60" placeholder="Min score">
+                        <button type="button" class="btn" id="generate-merit">Generate Merit List</button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Rank</th><th>Student</th><th>Course</th><th>Total Score</th><th>Status</th></tr></thead>
+                            <tbody id="merit-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!--confirmation of admission-->
+            <section id="admission" class="page">
+                <div class="card">
+                    <h3 class="section-title">Admission Confirmation</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Rank</th><th>Student</th><th>Course</th><th>Score</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody id="admission-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card hidden" id="letter-card">
+                    <h3 class="section-title">Admission Letter</h3>
+                    <div id="letter" class="letter"></div>
+                    <button type="button" class="btn" id="print-letter" style="margin-top:16px;"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+                </div>
+            </section>
+
+            <!-- reports-->
+            <section id="reports" class="page">
+                <div class="card">
+                    <div class="card-head">
+                        <h3 class="section-title">Reports</h3>
+                        <div>
+                            <button type="button" class="btn-small" id="export-csv"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+                            <button type="button" class="btn-small" id="export-pdf"><i class="fa-solid fa-file-pdf"></i> Print PDF</button>
+                        </div>
+                    </div>
+
+                    <h4 class="sub-title">Course-wise Report</h4>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Course</th><th>Applications</th><th>Shortlisted</th><th>Admitted</th><th>Rejected</th><th>Avg Score</th></tr></thead>
+                            <tbody id="report-course"></tbody>
+                        </table>
+                    </div>
+
+                    <h4 class="sub-title">Course-wise Analytics</h4>
+                    <div id="course-chart" class="bar-chart"></div>
+
+                    <h4 class="sub-title">Demographic Report (Gender)</h4>
+                    <div id="gender-chart" class="bar-chart"></div>
+
+                    <h4 class="sub-title">Status Summary</h4>
+                    <div id="status-chart" class="bar-chart"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
