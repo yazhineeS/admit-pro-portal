@@ -7,7 +7,7 @@ Students register, apply for a course, upload documents and track their status. 
 ## Links
 
 - **Task link / blog post:** https://www.freeinternships.in/blog/
-- **Live website:** _add your GitHub Pages / Netlify / Vercel link_
+- **Live website:** https://yazhinees.github.io/admit-pro-portal/
 - **YouTube demo:** _add your video link_
 
 ## Features
@@ -41,7 +41,7 @@ Students register, apply for a course, upload documents and track their status. 
 
 1. Download or clone the repository:
    ```
-   git clone https://github.com/your-username/admit-pro-portal.git
+   git clone https://github.com/yazhineeS/admit-pro-portal.git
    ```
 2. Open the `admit-pro-portal` folder.
 3. Double-click `index.html` (or open it with Live Server in VS Code).
@@ -82,4 +82,4 @@ admit-pro-portal/
 
 ## Author
 
-_Your Name_ - Student Code: DAS-COL-004
+Yazhini S - Student Code: DAS-COL-004
